@@ -1,0 +1,42 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Maven Repository
+
+All versions of my mods published after the 18th Of March 2023 are available [on my maven repository.](https://maven.mineblock11.dev/)
+
+<Tabs items={["Maven", "Gradle Kotlin", "Gradle Groovy", "SBT"]}>
+  <Tab>
+    ```xml
+<repository>
+    <id>mineblock11</id>
+    <name>mineblock11</name>
+    <url>https://maven.mineblock11.dev/releases</url>
+</repository>
+    ```
+  </Tab>
+  <Tab>
+    ```kotlin 
+maven {
+    url = uri("https://maven.mineblock11.dev/releases")
+}
+    ```
+  </Tab>
+  <Tab>
+  ```groovy
+maven {
+    url "https://maven.mineblock11.dev/releases"
+}
+  ```
+  </Tab>
+  <Tab>
+    ```scala
+resolvers +=
+  "11-maven-releases" 
+     at "https://maven.mineblock11.dev/releases"
+    ```
+  </Tab>
+</Tabs>
+
+<hr />
+
+I automatically publish my mods using GitHub actions - if you want to read more on this, [checkout the following page.](/workflow/gh_actions)

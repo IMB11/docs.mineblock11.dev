@@ -1,0 +1,84 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# API
+
+Wolves Of Other Furs, like all of my mods, is available on [the maven repository.](/maven)
+
+## Custom Variants
+
+To add your own variants, say if you had a custom biome, use the `WoofAPI.registerWolfVariant` function which requires the ID of the variant, and a biome predicate used to check a biome can have variants of that type spawning.
+
+```java
+// Example usage for the built-in "Skeleton" variant
+WoofAPI.registerWolfVariant(
+    new Identifier("woof", "skeleton"), 
+    (biome) -> biome.matchesId(new Identifier("soul_sand_valley"))
+);
+```
+
+Once you've registered the variant, you must add the following textures:
+
+- `assets/namespace/woof/variant-id/untame.png`
+- `assets/namespace/woof/variant-id/tame.png`
+- `assets/namespace/woof/variant-id/angry.png`
+
+## Custom Dog Beds
+
+If you want to create your own dog bed block, register a block using the `DogBedBlock` class.
+
+You must create a model for your dog bed block that uses the following format:
+
+```json
+{
+	"parent": "woof:block/dog_bed",
+	"textures": {
+		"0": "namespace:block/log_texture",
+		"1": "namespace:block/wool_texture",
+		"particle": "mnamespace:block/log_texture"
+	}
+}
+```
+
+## Custom Dog Bowls 
+
+The same workflow applies for dog bowls, register a block using the `DogBowlBlock` class.
+
+You will need to create two models, one for when the bowl is empty, and one for when the bowl contains food:
+
+<Tabs items={["bowl_empty.json", "bowl_filled.json"]}>
+    <Tab>
+```json
+{
+	"parent": "woof:block/dog_bowl_block",
+	"textures": {
+		"0": "namespace:block/log_texture",
+		"particle": "namespace:block/log_texture"
+	}
+}
+```
+    </Tab>
+    <Tab>
+```json
+{
+	"parent": "woof:block/dog_bowl_block_meat",
+	"textures": {
+		"0": "namespace:block/log_texture",
+		"particle": "namespace:block/log_texture"
+	}
+}
+```
+    </Tab>
+</Tabs>
+
+### Blockstate
+
+The dog bowl block has a `filled` blockstate property. You must assign the correct model to the correct state in your blockstate JSON.
+
+```json
+{
+  "variants": {
+    "filled=false": { "model": "namespace:block/bowl_empty" },
+    "filled=true": { "model": "namespace:block/bowl_filled" }
+  }
+}
+```
