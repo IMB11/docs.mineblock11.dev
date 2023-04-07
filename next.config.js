@@ -4,4 +4,10 @@ const withNextra = require('nextra')({
     latex: true
 })
 
-module.exports = withNextra()
+const isProd = process.env.NODE_ENV === 'production'
+
+module.exports = withNextra({
+    images: {
+        unoptimized: true,
+    }
+})
