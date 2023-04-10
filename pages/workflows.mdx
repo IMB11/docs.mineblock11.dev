@@ -1,0 +1,99 @@
+# Workflows
+
+I use various GitHub Actions workflows when releasing my mods - this ensures that the release process takes less than a minute.
+
+If you want to implement this into your own repositories, feel free!
+
+## Synchronizing Secrets
+
+One of the major issues I encountered was adding my modrinth and curseforge secrets to all of my mod repositories. It takes... **ages** and is horrendously slow.
+
+Instead of going through all 10+ repositories and editing the secrets, I used Google's "GitHub Secret Sync" action to copy the secrets from one repo to another.
+
+I stored this workflow and made it triggerable from my home repository (mineblock11/mineblock11) - the action copies the secrets from this repo, onto all repos I have specified in the workflow file.
+
+```yml
+name: Sync Publishing Secrets
+on: [workflow_dispatch]
+jobs:
+  sync-secrets:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google/secrets-sync-action@v1.4.1
+        with:
+          # Modify this "secrets" regex so that your provided secrets pass the match.
+          SECRETS: |
+            ^(MODRINTH|CURSEFORGE|MAVEN|CLASSIC_GITHUB)_TOKEN$
+          REPOSITORIES: |
+            mineblock11/example-repo
+            mineblock11/another-repo
+          REPOSITORIES_LIST_REGEX: false
+          GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CLASSIC_GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
+          MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+```
+
+### Notes
+
+- In my publishing workflow, the new GitHub token format doesn't work, so I've created a classic token and synchronized it as the `CLASSIC_GITHUB_TOKEN` secret.
+
+The secrets look like the following in the *Settings > Secrets And Variables > Actions* page on GitHub:
+
+![](https://i.imgur.com/XSn0gBF.png)
+
+## Publishing
+
+Once the secrets were synchronized - all I had to do was add the modrinth and curseforge project IDs as variables to all my repositories - an example can be seen below for Wolves Of Other Furs:
+
+![](https://i.imgur.com/Uam4Cxn.png)
+
+Finally, the release workflow is the exact same for all repositories, as it reads the required information from secrets and variables:
+
+```yml
+name: Upload release assets
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  upload_asset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - uses: burrunan/gradle-cache-action@v1
+        with:
+          gradle-distribution-sha-256-sum-warning: false
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          cache: gradle
+          java-version: 17
+      - run: chmod +x gradlew
+      - name: Build And Publish To Maven
+        # Feel free to uncomment and change the maven stuff if you plan to release on a maven repository.
+        # https://docs.gradle.org/current/samples/sample_publishing_credentials.html
+        run: ./gradlew build publish --no-daemon # -PmineblockMavenUsername=mineblock11 -PmineblockMavenPassword=${{ secrets.MAVEN_TOKEN }}
+      - uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          version-resolver: exact
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-id: ${{ vars.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          github-token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
+```
+
+### Notes
+
+- For `mc-publish`, I use the exact version resolver because of the new release strategy by Mojang (fuck you), mods likely don't work on differing minor versions. However this may be different and can be removed in certain cases (pre 1.19 mods and or small niche mods with one or two mixins)
+
+An example of the workflow running can be found on [the Toggle My Tooltips repository.](https://github.com/mineblock11/ToggleMyTooltips/actions/runs/4633599948/jobs/8198979250)

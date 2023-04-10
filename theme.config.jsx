@@ -20,6 +20,20 @@ export default {
       titleTemplate: '%s – mineblock11'
     }
   },
+  editLink: {
+    component: <></>
+  },
+  feedback: {
+    content: <></>
+  },
+  toc: {
+    float: true,
+    extraContent: <>
+      <small>
+      Content on this site is licensed under CC-0, except the mod information pages, which are All Rights Reserved.
+      </small>
+    </>
+  },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,14 +42,14 @@ export default {
     </>
   ),
   banner: {
-    key: 'tmt-release',
-    text: <a href="https://modrinth.com/mod/toggle-my-tooltips" target="_blank">
-      🎉 Toggle My Tooltips has released. View on Modrinth →
+    key: 'woof-4-0-1-release',
+    text: <a href="https://modrinth.com/mod/woof" target="_blank">
+      🐾 W.O.O.F 4.0.1 has released. View on Modrinth →
     </a>,
   },
   footer: {
     text: <span>
-      CC0 {new Date().getFullYear()} © <a href="https://nextra.site" target="_blank">mineblock11</a>.
+      CC0 (except mod information) {new Date().getFullYear()} © <a href="https://github.com/mineblock11" target="_blank">mineblock11</a>.
     </span>,
   },
   navigation: false
