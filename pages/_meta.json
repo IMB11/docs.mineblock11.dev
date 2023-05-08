@@ -1,54 +1,60 @@
 {
-    "index": "Welcome",
-    "email--link": {
-        "title": "Contact",
-        "type": "menu",
-        "items": {
-            "about": {
-                "title": "Email",
-                "href": "mailto:contact@mineblock11.dev",
-                "newWindow": true
-            },
-            "contact": {
-                "title": "Discord",
-                "href": "https://discord.gg/UzHtJKqHny"
-            }
-        }
-    },
-    "curseforge--link": {
-        "title": "Curseforge",
-        "type": "page",
-        "href": "https://www.curseforge.com/members/itsmineblock11/projects",
+  "index": "Welcome",
+  "email--link": {
+    "title": "Contact",
+    "type": "menu",
+    "items": {
+      "about": {
+        "title": "Email",
+        "href": "mailto:contact@mineblock11.dev",
         "newWindow": true
-    },
-    "modrinth--link": {
-        "title": "Modrinth",
-        "type": "page",
-        "href": "https://modrinth.com/user/mineblock11",
-        "newWindow": true
-    },
-    "sep--1": {
-        "type": "separator"
-    },
-    "source-code": "Source Code Repositories",
-    "maven": "Maven Repository",
-    "sep--2": {
-        "type": "separator"
-    },
-    "illagers-love-armor": {
-        "title": "Illagers Love Armor",
-        "theme": {
-            "toc": true
-        }
-    },
-    "wolves-of-other-furs": {
-        "title": "Wolves Of Other Furs",
-        "theme": {
-            "toc": true
-        }
-    },
-    "sep--3": {
-        "type": "separator"
-    },
-    "workflows": "Workflows"
+      },
+      "contact": {
+        "title": "Discord",
+        "href": "https://discord.gg/UzHtJKqHny"
+      }
+    }
+  },
+  "curseforge--link": {
+    "title": "Curseforge",
+    "type": "page",
+    "href": "https://www.curseforge.com/members/itsmineblock11/projects",
+    "newWindow": true
+  },
+  "modrinth--link": {
+    "title": "Modrinth",
+    "type": "page",
+    "href": "https://modrinth.com/user/mineblock11",
+    "newWindow": true
+  },
+  "sep--1": {
+    "type": "separator"
+  },
+  "source-code": "Source Code Repositories",
+  "maven": "Maven Repository",
+  "sep--2": {
+    "type": "separator"
+  },
+  "illagers-love-armor": {
+    "title": "Illagers Love Armor",
+    "theme": {
+      "toc": true
+    }
+  },
+  "wolves-of-other-furs": {
+    "title": "Wolves Of Other Furs",
+    "theme": {
+      "toc": true
+    }
+  },
+  "simplebroadcast": {
+    "title": "SimpleBroadcast",
+    "theme": {
+      "toc": true
+    }
+  },
+  "sep--3": {
+    "type": "separator"
+  },
+  "workflows": "Workflows"
 }

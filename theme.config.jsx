@@ -42,9 +42,9 @@ export default {
     </>
   ),
   banner: {
-    key: 'woof-4-0-1-release',
-    text: <a href="https://modrinth.com/mod/woof" target="_blank">
-      🐾 W.O.O.F 4.0.1 has released. View on Modrinth →
+    key: 'simple-broadcast-release',
+    text: <a href="https://modrinth.com/mod/simplebroadcast" target="_blank">
+      📢 Simple Broadcast is now out! View on Modrinth →
     </a>,
   },
   footer: {
