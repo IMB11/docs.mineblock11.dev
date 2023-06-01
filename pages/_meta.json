@@ -35,6 +35,12 @@
   "sep--2": {
     "type": "separator"
   },
+  "mru": {
+    "title": "MRU",
+    "theme": {
+      "toc": true
+    }
+  },
   "illagers-love-armor": {
     "title": "Illagers Love Armor",
     "theme": {
